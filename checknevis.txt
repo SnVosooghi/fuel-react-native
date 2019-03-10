@@ -1,0 +1,30 @@
+while h<=11000
+
+
+    CL_c_base[i] = 2*(W2/S)./(ro_c_base[i]*v_c_base[i]^2);
+    CD_c_base[i] = 0.2843*CL_c_base[i].^2 - 0.0131*CL_c_base[i] + 0.0188;
+    LOD_c_base[i] = CL_c_base[i]/CD_c_base[i];
+    TR_c_base[i] = W2/LOD_c_base[i];
+    ROC_c_base[i] = (Ta_c_base[i]*1000 - TR_c_base[i])*v_c_base[i]/W2;
+
+    v1[i] = v_c_base[i];
+    CD1[i] = CD_c_base[i];
+    CL1[i] = CL_c_base[i];
+    LOD1[i] = LOD_c_base[i];
+    ROC1[i] = ROC_c_base[i];
+    vx1[i] = v1[i]*cos(asin(ROC1[i]/v1[i]));
+
+    h1[i] = h;
+    dt = dh/(ROC_c_base[i]);
+
+    dtt[i] = dt;
+    Wdot[i] = ((C_c_base[i+1] + C_c_base[i])/2)*((Ta_c_base[i+1] + Ta_c_base[i])/2)*1000;
+    dW[i] = Wdot[i]*dtt[i];
+    W2 = W2 - dW[i];
+
+    dx = vx1[i]*dt;
+
+    x = x + dx;
+    t = t + dt;
+    h = h + dh;
+    i = i+1;
