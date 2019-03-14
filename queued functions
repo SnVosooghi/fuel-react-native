@@ -1,13 +1,7 @@
-this.ROCdrymax=this.calculateROCdrymax();
-this.a=this.calculateab();
-this.ROCmax=this.calculateROCmax();
-this.ROCmaxmax=this.calculateROCmaxmax();
-this.b=this.calculateab();
-this.extendedROCdrymax=this.calculateextendedROCdrymax();
-this.extendedROCmaxmax=this.calculateextendedROCmaxmax();
-this.WWf1=this.calculateWWf1();
-this.ROCstar=linear.linear(.9, this.state.m, this.ROCmax);
-this.ROCstarcrp=linear.linear(this.state.hstar,[0, 10, 20, 30, 36, 40, 50]*1000*0.3048,this.ROCstar);
+
+
+
+
 for (let i=0;i<38;i++){
   this.dtstar[i] = 25/((this.ROCstarcrp[i] + this.ROCstarcrp[i+1])/2);
   this.tetastar[i] = math.asin((this.ROCstarcrp[i] + this.ROCstarcrp[i+1])/2/this.state.vmiddle[i]);
