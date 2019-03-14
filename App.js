@@ -100,11 +100,43 @@ class HomeScreen extends React.Component {
      this.vcbase= math.dotMultiply(this.state.Va , 0.9);
      this.climb = this.calculateClimb();    //start of descend
      this.CLd = this.calculateCLd();
-
+     this.CDd = this.calculateCDd();
+     this.Dd = this.calculateDd();
+     this.ROD = this.calculateROD();
+     this.descend=this.calculateaDesecend();
      // Test functions
      //linear.linear(this.state.hstar,math.dotMultiply([0, 10, 20, 30, 36, 40, 50], 304.8),this.ROCstar)[4][4]
-     this.myTest=this.climb;
+     this.myTest=this.descend;
   }
+  calculateROD(){
+    let answer=[];
+    for (let i=0;i<126;i++){
+      answer[i]=this.state.V_d*( this.Dd[i])/this.state.W_d;
+    }
+    return answer;
+  }
+  calculateDd(){
+    let answer=[];
+    for (let i=0;i<126;i++){
+      answer[i]=math.dotMultiply(0.5*this.state.ro_d[i]*this.state.V_d*this.state.V_d*this.state.S, this.CDd[i]);
+    }
+    return answer;
+  }
+    calculateCDd(){
+      let answer=[];
+      for (let i=0;i<126;i++){
+
+          if (this.state.M_d[i]<=0.8)
+              answer[i] = 0.4353*this.CLd[i] * this.CLd[i] - 0.0844*this.CLd[i] + 0.0257;
+          if (this.state.M_d[i]>0.8 && this.state.M_d[i]<=1)
+              answer[i] = 0.2843*this.CLd[i] *this.CLd[i] - 0.0131*this.CLd[i] + 0.0188;
+          if (this.state.M_d[i]>1 && this.state.M_d[i]<=1.2)
+              answer[i] = 0.2490*this.CLd[i] *this.CLd[i] - 0.0051*this.CLd[i] + 0.0358;
+          if (this.state.M_d[i]>1.2)
+              answer[i] = 0.3091*this.CLd[i] *this.CLd[i] - 0.0078*this.CLd[i] + 0.0401;
+      }
+      return answer;
+    }
     calculateCLd(){
       let answer=[];
       for(let i=0;i<126;i++){
@@ -159,20 +191,16 @@ class HomeScreen extends React.Component {
     let dW=[];
     while (h>500)
         {
-        v2[i] = V_d;
-        CD2[i] = CD_d[i];
-        CL2[i] = CL_d[i];
-        LOD1[i] = LOD_d[i];
-        ROC2[i] = ROD[i];
+        v2[i] = this.state.V_d;
+        CD2[i] = this.CDd[i];
+        CL2[i] = this.CLd[i];
+        ROC2[i] = this.ROD[i];
         vx2[i] = v2[i]*math.cos(math.asin(ROC2[i]/v2[i]));
 
         h2[i] = h;
-        dt = -dh/(ROD[i]);
+        dt = -dh/(this.ROD[i]);
 
         dt_d[i] = dt;
-        Wdot[i] = ((this.state.C_c_base(i+1) + this.state.C_c_base[i])/2)*((this.state.Ta_c_base(i+1) + this.state.Ta_c_base[i])/2)*1000;
-        dW[i] = Wdot[i]*dt_d[i];
-        W2 = W2 - dW[i];
 
         dx = vx2[i]*dt;
 
@@ -181,7 +209,7 @@ class HomeScreen extends React.Component {
         h = h - dh;
         i = i+1;
       }
-      return math.sum(dW);
+      return -this.xd;
   }
   calculateClimb(){
     h = 1500;

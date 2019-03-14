@@ -10,19 +10,8 @@
 
     //start of climb
     //start of descend
-this.M_d = math.dotDivide(this.state.V_d, this.state.Va_d);
-this.CL_d = math.dotDivide(2*(this.state.W_d/this.state.S), (math.dotMultiply(this.state.ro_d, math.dotMultiply(this.state.V_d, this.state.V_d))));
-for (let i=0;i<38;i++){
 
-    if (M_d[i]<=0.8)
-        this.CD_d[i] = 0.4353*this.CL_d[i], 0.3091*this.CL_d[i] - 0.0844*this.CL_d[i] + 0.0257;
-    if (M_d[i]>0.8 && M_d[i]<=1)
-        this.CD_d[i] = 0.2843*this.CL_d[i], 0.3091*this.CL_d[i] - 0.0131*this.CL_d[i] + 0.0188;
-    if (M_d[i]>1 && M_d[i]<=1.2)
-        this.CD_d[i] = 0.2490*this.CL_d[i], 0.3091*this.CL_d[i] - 0.0051*this.CL_d[i] + 0.0358;
-    if (M_d[i]>1.2)
-        this.CD_d[i] = 0.3091*this.CL_d[i], 0.3091*this.CL_d[i] - 0.0078*this.CL_d[i] + 0.0401;
-}
-this.D_d = math.dotMultiply(0.5*this.state.rod*this.state.Vd*this.state.Vd*this.state.S, this.CD_d);
-this.myROD = this.state.Vd*(0 - this.D_d)/this.W_d;
+
+
+
 this.descend=this.calculateaDesecend() ;    //statrt of full AB thrust
