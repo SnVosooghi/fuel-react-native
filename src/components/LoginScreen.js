@@ -19,7 +19,7 @@ import SignupSection from './SignupSection';
 // manager.authorize('google', {scopes: 'profile email'})
 // .then(resp => console.log('Your users ID'))
 // .catch(err => console.log('There was an error'));
-export default class LoginScreen extends Component {
+export default class LoginScreen extends React.Component {
   render() {
     return (
       <View style={{flex:1,backgroundColor:'black'}}>

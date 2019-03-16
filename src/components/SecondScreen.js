@@ -17,7 +17,7 @@ import arrowImg from '../images/left-arrow.png';
 import aja from '../images/aja.png';
 const SIZE = 40;
 
-export default class SecondScreen extends Component {
+export default class SecondScreen extends React.Component {
   constructor() {
     super();
 

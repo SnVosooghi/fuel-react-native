@@ -13,7 +13,7 @@ import RegisterForm from './RegisterForm';
 import bgSrc from '../images/Mywallpaper.png';
 import ButtonRegister from './ButtonRegister';
 
-export default class Resgister extends Component {
+export default class takeOff extends React.Component {
   constructor() {
     super();
 
